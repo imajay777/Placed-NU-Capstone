@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,6 +20,7 @@ import com.placenu.spring.mail.EmailServiceImpl;
 
 @Controller
 @RequestMapping(value="/")
+@Component
 public class MainController {
 	@RequestMapping(value="Placed@NU",method = RequestMethod.GET)
 	public String showHomePage() {
@@ -33,7 +36,7 @@ public class MainController {
 	@Autowired
 	CompanyDao companyDao;
 
-	
+	@Autowired
 	EmailServiceImpl emailService;
 	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)

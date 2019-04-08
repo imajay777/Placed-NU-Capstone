@@ -235,13 +235,13 @@ body {
 						<div class="col-sm-12">
 							<div class="row">
 								
-									<label>Name *</label> <input type="text"
+									<label>Name *</label> <input type="text" required
 										placeholder="Enter Full Name Here.." class="form-control" name="name">
 								
 							</div>
 
 							<div class="form-group">
-								<label>Email Address *</label> <input type="text" name="email"
+								<label>Email Address *</label> <input type="email" name="email"
 									placeholder="Enter Email Address Here.." class="form-control"
 									name="email" required>
 							</div>

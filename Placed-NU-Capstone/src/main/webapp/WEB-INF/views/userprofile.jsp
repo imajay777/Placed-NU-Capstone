@@ -879,7 +879,7 @@ a.stp-back-totop {
 					<a class="navbar-brand" href="/Placed@NU">Placed@NU</a>
 				</div>
 				<ul class="nav navbar-nav navbar-right">
-					<li class="active"><a href="#team">Team</a></li>
+					<li class="active"><a href="#"></a></li>
 
 					<li class="dropdown"><a class="dropdown-toggle"
 						data-toggle="dropdown" href="#">logged in as
@@ -913,7 +913,7 @@ a.stp-back-totop {
 						</form>
 					</div>
 					<div class="col-sm-6">
-						<form action="/getinterestedjobs" method="get">
+						<form action="#" method="get">
 						
 							<input type="hidden" name="jobSeekerId" value="${seeker.jobseekerId}"></input>
 							<input type="submit" class="btn btn-lg btn-block btn-success"

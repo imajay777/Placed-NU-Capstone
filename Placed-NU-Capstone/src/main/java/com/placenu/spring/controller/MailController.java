@@ -26,7 +26,7 @@ import com.placenu.spring.web.dto.MailObject;
 
 public class MailController {
 
-	
+	@Autowired
 	public EmailServiceImpl emailService;
 
 	@Value("${attachment.invoice}")

@@ -30,7 +30,7 @@ public class JobSeekerDaoImpl implements JobSeekerDao {
 		String selectQuery = "SELECT jobId, title, description, responsibilites, location, salary, companyId, state, companyName FROM JobPostingsView jpv WHERE jobId in :jobIds";
 		String[] salaries = null;
 		if (null != jpv.getLocation()) {
-			locationFlag = true;
+			locationFlag = true; 
 			selectQuery = selectQuery.concat(" AND jpv.location IN (:locations) ");
 		}
 		if (null != jpv.getCompanyName()) {
@@ -137,26 +137,11 @@ public class JobSeekerDaoImpl implements JobSeekerDao {
 	
 	@Override
 	public List<?> searchJobs(String searchString) {
-		searchString = "%" + searchString + "%";
-		searchString = searchString.replaceAll(" ", "% %");
-		String searchStringArray[] = searchString.split(" ");
-		String selectQuery = "SELECT jobId FROM JobPostingsView jp";
-		if (!searchString.isEmpty()) {
-			selectQuery = selectQuery.concat(" WHERE ");
-		}
-
-		for (int i = 0; i < searchStringArray.length; i++) {
-			selectQuery = selectQuery.concat("jp.keywords LIKE :searchParam" + i);
-			if (i != searchStringArray.length - 1) {
-				selectQuery = selectQuery.concat(" AND ");
-			}
-		}
-
+		searchString =searchString;
+		
+		String selectQuery = "SELECT jobId FROM JobPostingsView ";
+	
 		Query query = entityManager.createQuery(selectQuery);
-		for (int i = 0; i < searchStringArray.length; i++) {
-			query.setParameter("searchParam" + i, searchStringArray[i]);
-		}
-
 		List<?> list = query.getResultList();
 		try {
 		} catch (Exception e) {

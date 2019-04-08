@@ -243,9 +243,9 @@ body {
 					<a class="navbar-brand" href="#pagetop">Placed@NU</a>
 				</div>
 				<ul class="nav navbar-nav navbar-right">
-					<li class="active"><a href="#requirements">Image Gallery
+					<li class="active"><a href="#">Image Gallery
 						</a></li>
-					<li class="active"><a href="#team">Team</a></li>
+					<li class="active"><a href="#"></a></li>
 					<!--<li><a href="#">Page 1</a></li>
       <li><a href="#">Page 2</a></li>
       <li><a href="#">Page 3</a></li>-->
@@ -321,34 +321,5 @@ body {
 			</div>
 		</div>
 		
-		<div class="bgimg-1">
-	  <div class="caption" style="top: 20%;">
-		  <span class="border">Contact Us</span> 
-	    <div class="topStack"></div>
-	    <div class="container-fluid">
-		 	<div class="row contacts">
-		 		<div class="col-sm-3 social_links">
-		 			<a href="https://www.facebook.com/profile.php?id=100011359739804">
-		 				<img src="C:\Users\gsaja\git\Placed@NU-Capstone\Placed-NU-Capstone\Placed-NU-Capstone\src\main\resources\images\facebook_logo.png" class="imgResize">
-		 			</a>
-		 		</div>
-		 		<div class="col-sm-3 social_links">
-		 			<a href="https://twitter.com/AjaySha24223163">
-		 				<img src="C:\Users\gsaja\git\Placed@NU-Capstone\Placed-NU-Capstone\Placed-NU-Capstone\src\main\resources\images\twitter_logo.png" class="imgResize">
-		 			</a>
-		 		</div>
-		 		<div class="col-sm-3 social_links">
-		 			<a href="https://github.com/imajay777">
-		 				<img src="C:\Users\gsaja\git\Placed@NU-Capstone\Placed-NU-Capstone\Placed-NU-Capstone\src\main\resources\images\github_logo.png" class="imgResize">
-		 			</a>
-		 		</div>
-		 		<div class="col-sm-3 social_links">
-		 			<a href="https://www.instagram.com/iamajay77/">
-		 				<img src="C:\Users\gsaja\git\Placed@NU-Capstone\Placed-NU-Capstone\Placed-NU-Capstone\src\main\resources\images\instagram_logo.png" class="imgResize">
-		 			</a>
-		 		</div>
-		 	</div>
-	 	</div>
-	</div>
-	</div>
+
 </html>

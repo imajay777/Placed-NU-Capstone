@@ -234,7 +234,7 @@ body {
 					<a class="navbar-brand" href="/Placed@NU">Placed@NU</a>
 				</div>
 				<ul class="nav navbar-nav navbar-right">
-					<li class="active"><a href="#team">Team</a></li>
+					<li class="active"><a href="#"></a></li>
 
 					<li class="dropdown"><a class="dropdown-toggle"
 						data-toggle="dropdown" href="#">logged in as
@@ -257,40 +257,7 @@ body {
 			</div>
 		</div>
 
-		<div class="well">
-			<form class="form-inline row well" style="margin: 5px"
-				action="/searchjobs" method="get">
-				<div class="col-sm-12">
-					<label  for="cname">Search</label> <input
-						type="text" class="form-control" name="searchString"
-						placeholder="Enter Search Keywords" >
-				</div>
-				<input type="hidden" name="userId" value="${seeker.jobseekerId}"></input>
-				<div class="form-group col-sm-4">
-					<label class="col-sm-12" for="cname">Company name</label> <input
-						type="text" class="form-control" name="companies"
-						placeholder="comma separated">
-				</div>
-				<div class="form-group col-sm-4">
-					<label class="col-sm-12" for="location">Job locations</label> <input
-						type="text" class="form-control" name="locations"
-						placeholder="comma separated">
-				</div>
-				<div class="form-group col-sm-4">
-					<label class="col-sm-12">Salary $ p.a.:</label>
-					<div class="form-group col-sm-4">
-						<label for="min">Min</label> <input class="col-sm-2" type="text"
-							class="form-control" id="min" value="0" name="min" width="10px">
-					</div>
-					<div class="form-group col-sm-4">
-						<label for="max">Max</label> <input class="col-sm-2" type="text"
-							class="form-control" id="max" value="1000000" name="max">
-					</div>
-				</div>
-
-				<button type="submit" class="btn btn-primary">Search</button>
-			</form>
-		</div>
+	
 		<div class="results">
 			<h2>Search Results:</h2>
 			<p>${fn:length(jobs)} search results</p>

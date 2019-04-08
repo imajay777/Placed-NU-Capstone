@@ -43,7 +43,7 @@ public class JobSeekerController {
 	@Autowired
 	JobSeekerDao jobSeekerDao;
 
-	
+	@Autowired
 	EmailServiceImpl emailService;
 	
 	@Autowired
@@ -61,31 +61,11 @@ public class JobSeekerController {
 	 */
 	@RequestMapping(value = "/searchjobs", method = RequestMethod.GET)
 	public String searchJobs(@RequestParam("userId") String userId,
-			@RequestParam("searchString") Optional<String> searchString,
-			@RequestParam("locations") Optional<String> locations,
-			@RequestParam("companies") Optional<String> companies, 
-			@RequestParam("min") Optional<String> min,
-			@RequestParam("max") Optional<String> max, Model model) {
+			 Model model) {
 		JobPostingsView jpv = new JobPostingsView();
 		String search = "";
-		if (!searchString.equals(Optional.empty())) {
-			search = searchString.get();
-		}
 		
 		List<?> jobIds = jobSeekerDao.searchJobs(search);
-		if ((!locations.equals(Optional.empty())) && (locations.get()!="")) {
-			System.out.println("location");
-			jpv.setLocation(locations.get());
-		}
-		if (!companies.equals(Optional.empty()) && companies.get()!="") {
-			System.out.println("comp");
-			jpv.setCompanyName(companies.get());
-		}
-		if (!min.equals(Optional.empty()) && !max.equals(Optional.empty())) {
-		String salary = min.get()+","+max.get();
-		jpv.setSalary(salary);
-		}
-
 		List<?> jp = jobSeekerDao.filterJobs(jpv, jobIds);
 
 		JobSeeker jobseeker = jobSeekerDao.getJobSeeker(Integer.parseInt(userId));
@@ -367,132 +347,7 @@ public class JobSeekerController {
 
 	}
 
-	@RequestMapping(value = "/interested", method = RequestMethod.POST)
-	public String createInterest(@RequestParam("userId") String userId, @RequestParam("jobId") String jobId, Model model) {
-
-		try {
-			Interested in = new Interested();
-			in.setJobId(Integer.parseInt(jobId));
-			in.setJobSeekerId(Integer.parseInt(userId));
-			Interested i1 = interestedDao.createInterest(in);
-			
-		} catch (Exception e) {
-
-			HttpHeaders httpHeaders = new HttpHeaders();
-
-			Map<String, Object> message = new HashMap<String, Object>();
-			Map<String, Object> response = new HashMap<String, Object>();
-			message.put("code", "400");
-			message.put("msg", "Error Occured");
-			response.put("BadRequest", message);
-			JSONObject json_test = new JSONObject(response);
-			String json_resp = json_test.toString();
-
-			httpHeaders.setContentType(MediaType.APPLICATION_JSON);
-			return "error";
-
-		}
-		JobPosting job = jobDao.getJobPosting(Integer.parseInt(jobId));
-		Company company = job.getCompany();
-		JobSeeker seeker = jobSeekerDao.getJobSeeker(Integer.parseInt(userId));
-		List<?> ij = interestedDao.getAllInterestedJobId(Integer.parseInt(userId));
-		int i = 0, j = 0;
-		if(ij.contains(Integer.parseInt(jobId))){
-			i = 1;
-		}
-		String message="<div class=\"alert alert-success\">This job has been <strong>Successfully added</strong> to your interests</div>";
-		
-		List<Integer> il = getAppliedJobs(userId);
-		if(il.contains(Integer.parseInt(jobId))){
-			j = 1;
-		}
-		
-		model.addAttribute("job", job);
-		model.addAttribute("seeker", seeker);
-		model.addAttribute("company", company);
-		model.addAttribute("interested", i);
-		model.addAttribute("message", message);
-		model.addAttribute("applied", j);
-		
-		
-		return "userjobprofile";
-	}
-
-	/**
-	 * @param userId
-	 * @param jobId
-	 * @return "deleted" if the interest is deleted
-	 */
-	@RequestMapping(value = "/interested/delete", method = RequestMethod.POST)
-	public String deleteInterest(@RequestParam("userId") String userId, @RequestParam("jobId") String jobId, Model model) {
-
-		try {
-			List<?> querylist = interestedDao.getInterestedJobId(Integer.parseInt(jobId), Integer.parseInt(userId));
-			boolean interestDeleted = interestedDao.deleteInterest(Integer.parseInt(querylist.get(0).toString()));
-			if (interestDeleted) {
-				JobPosting job = jobDao.getJobPosting(Integer.parseInt(jobId));
-				Company company = job.getCompany();
-				JobSeeker seeker = jobSeekerDao.getJobSeeker(Integer.parseInt(userId));
-				List<?> ij = interestedDao.getAllInterestedJobId(Integer.parseInt(userId));
-				int i = 0;
-				if(ij.contains(Integer.parseInt(jobId))){
-					i = 1;
-				}
-
-				String message="<div class=\"alert alert-danger\">This job has been <strong>Successfully removed</strong> from your interests</div>";
-				
-				model.addAttribute("job", job);
-				model.addAttribute("seeker", seeker);
-				model.addAttribute("company", company);
-				model.addAttribute("interested", i);
-				model.addAttribute("message", message);
-				model.addAttribute("applied", 1);
-				
-				
-				return "userjobprofile";
-
-			} else {
-				return "error";
-			}
-
-		} catch (Exception e) {
-
-			HttpHeaders httpHeaders = new HttpHeaders();
-
-			Map<String, Object> message = new HashMap<String, Object>();
-			Map<String, Object> response = new HashMap<String, Object>();
-			message.put("code", "400");
-			message.put("msg", "Error Occured");
-			response.put("BadRequest", message);
-			JSONObject json_test = new JSONObject(response);
-			String json_resp = json_test.toString();
-
-			httpHeaders.setContentType(MediaType.APPLICATION_JSON);
-			return "error";
-
-		}
-
-	}
-
-	/**
-	 * @param jobSeekerId
-	 * @return List of the jobs the job seeker is interested in
-	 */
-	@RequestMapping(value = "/getinterestedjobs", method = RequestMethod.GET)
-	public String getInterestedJobsForJobSeeker(@RequestParam("jobSeekerId") String jobSeekerId, Model model) {
-		
-		JobSeeker jobseeker = jobSeekerDao.getJobSeeker(Integer.parseInt(jobSeekerId));
-		List<?> jobSeekerInterestsList = jobSeekerDao.getJobSeeker(Integer.parseInt(jobSeekerId)).getInterestedjobs();
-		
-		model.addAttribute("jobs", jobSeekerInterestsList);
-		model.addAttribute("seeker", jobseeker);
-		return "interestedjobs";
-	}
 	
-	/**
-	 * @param jobSeekerId
-	 * @return Job applications list for the job seeker
-	 */
 	@RequestMapping(value="/getappliedjobs", method = RequestMethod.GET)
 	public List<Integer> getAppliedJobs(@RequestParam("jobSeekerId") String jobSeekerId){
 		List<?> jobSeekerAppliedList =jobSeekerDao.getJobSeeker(Integer.parseInt(jobSeekerId)).getJobApplicationList();
